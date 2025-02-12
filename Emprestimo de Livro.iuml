@@ -1,0 +1,38 @@
+@startuml "Empréstimo de Livro"
+hide footbox
+
+|Usuário|
+start
+
+:Solicitar Empréstimo;
+|Sistema|
+:Verificar Disponibilidade;
+if (Disponível?) then (Sim)
+fork
+|Usuário|
+:Registrar Empréstimo;
+:Definir Prazo de Devolução;
+fork again
+|Sistema|
+:Atualizar Status do Livro;
+end fork
+else (Não)
+stop
+end if
+
+:Usuário pode Renovar Empréstimo se não houver Reservas;
+if (Prazo Expirado?) then (Sim)
+:Notificar Usuário;
+:Aplicar Multa;
+endif
+
+:Usuário Devolve Livro;
+if (Livro Danificado?) then (Sim)
+|Sistema|
+:Encaminhar para Manutenção;
+else (Não)
+:Retornar ao Acervo;
+endif
+
+stop
+@enduml

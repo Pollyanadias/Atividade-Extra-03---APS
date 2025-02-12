@@ -1,0 +1,15 @@
+@startuml "Livro Emprestado"
+hide footbox
+
+[*] --> Disponível
+Disponível --> Reservado : reservarLivro()
+Reservado --> Emprestado : retirarLivro()
+Emprestado --> Atrasado : prazoExpirado()
+Emprestado --> Devolvido : devolverLivro()
+Atrasado --> Devolvido : devolverLivroComAtraso()
+Devolvido --> Disponível : avaliarLivro()
+Devolvido --> EmManutencao : livroDanificado()
+EmManutencao --> Disponível : restaurarLivro()
+EmManutencao --> Defeito : livroIrrecuperavel()
+
+@enduml
